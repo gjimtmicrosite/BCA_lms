@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>BCA with AI Integration — Upload & Submission Guide</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:'Segoe UI',Arial,sans-serif;
+background:#f4f6fb;
+color:#1a1a2e;
+line-height:1.6;
+}
+
+header{
+background:linear-gradient(135deg,#0f3460,#16213e);
+color:#fff;
+padding:18px 32px;
+}
+
+header h1{
+font-size:1.5rem;
+margin-bottom:4px;
+}
+
+header p{
+font-size:.85rem;
+opacity:.85;
+}
+
+nav{
+background:#16213e;
+display:flex;
+flex-wrap:wrap;
+gap:4px;
+padding:8px 32px;
+}
+
+nav a{
+color:#e0e0e0;
+text-decoration:none;
+padding:7px 14px;
+border-radius:4px;
+font-size:.85rem;
+transition:.2s;
+}
+
+nav a:hover,
+nav a.active{
+background:#0f3460;
+color:#fff;
+}
+
+.container{
+max-width:1000px;
+margin:28px auto;
+padding:0 20px;
+}
+
+.card{
+background:#fff;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+padding:24px;
+margin-bottom:20px;
+}
+
+.card h2{
+color:#0f3460;
+margin-bottom:12px;
+font-size:1.2rem;
+}
+
+.card h3{
+color:#16213e;
+margin:16px 0 8px;
+font-size:.97rem;
+}
+
+.btn{
+display:inline-block;
+padding:8px 18px;
+background:#0f3460;
+color:#fff;
+border-radius:6px;
+text-decoration:none;
+font-size:.85rem;
+margin:4px 2px;
+transition:.2s;
+}
+
+.btn:hover{
+background:#16213e;
+}
+
+.btn-green{
+background:#2e7d32;
+}
+
+.btn-green:hover{
+background:#1b5e20;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:.88rem;
+margin-top:10px;
+}
+
+th{
+background:#0f3460;
+color:#fff;
+padding:10px 12px;
+text-align:left;
+}
+
+td{
+padding:10px 12px;
+border-bottom:1px solid #eee;
+}
+
+tr:hover td{
+background:#f5f7ff;
+}
+
+.file-name{
+font-family:monospace;
+background:#e8f5e9;
+color:#1b5e20;
+padding:3px 8px;
+border-radius:4px;
+font-size:.85rem;
+display:inline-block;
+margin-top:4px;
+}
+
+.hint{
+font-size:.82rem;
+color:#666;
+display:block;
+margin-top:5px;
+}
+
+.tip{
+background:#e3f2fd;
+border-left:4px solid #0f3460;
+padding:10px 14px;
+border-radius:0 6px 6px 0;
+font-size:.88rem;
+margin:12px 0;
+}
+
+.warn{
+background:#fff3e0;
+border-left:4px solid #e65100;
+padding:10px 14px;
+border-radius:0 6px 6px 0;
+font-size:.88rem;
+margin:12px 0;
+}
+
+.checklist label{
+display:flex;
+gap:10px;
+margin:12px 0;
+align-items:flex-start;
+font-size:.92rem;
+}
+
+.checklist input{
+margin-top:4px;
+}
+
+.step{
+display:flex;
+gap:16px;
+margin-bottom:18px;
+align-items:flex-start;
+}
+
+.step-num{
+min-width:36px;
+height:36px;
+border-radius:50%;
+background:#0f3460;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.step-body{
+flex:1;
+}
+
+footer{
+text-align:center;
+padding:20px;
+font-size:.82rem;
+color:#888;
+margin-top:30px;
+}
+
+/* LOGIN */
+
+#lms-login-overlay{
+display:flex;
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);
+z-index:99999;
+align-items:center;
+justify-content:center;
+}
+
+.lms-login-box{
+background:#fff;
+border-radius:18px;
+padding:40px 36px;
+width:360px;
+box-shadow:0 20px 60px rgba(0,0,0,.5);
+text-align:center;
+}
+
+.lms-login-box h2{
+font-size:1.3rem;
+color:#0f172a;
+margin-bottom:5px;
+}
+
+.lms-subtitle{
+font-size:.8rem;
+color:#64748b;
+margin-bottom:22px;
+}
+
+.lms-login-box input{
+width:100%;
+padding:11px 14px;
+border:1.5px solid #ddd;
+border-radius:8px;
+font-size:.95rem;
+margin-bottom:12px;
+}
+
+.lms-login-box button{
+width:100%;
+padding:12px;
+background:#3b82f6;
+color:#fff;
+border:none;
+border-radius:8px;
+font-size:1rem;
+cursor:pointer;
+font-weight:600;
+}
+
+.lms-login-box button:hover{
+background:#2563eb;
+}
+
+#lms-login-error{
+color:#ef4444;
+font-size:.82rem;
+margin-top:8px;
+}
+
+.lms-page-content{
+display:none;
+}
+
+.lms-page-content.unlocked{
+display:block;
+}
+
+.lms-logout-btn{
+position:fixed;
+top:12px;
+right:16px;
+z-index:9999;
+background:#ef4444;
+color:#fff;
+border:none;
+border-radius:6px;
+padding:7px 14px;
+cursor:pointer;
+font-weight:600;
+display:none;
+}
+
+.lms-logout-btn:hover{
+background:#dc2626;
+}
+
+.lms-welcome-bar{
+background:#0f172a;
+color:#94a3b8;
+font-size:.78rem;
+text-align:center;
+padding:6px;
+display:none;
+}
+
+@media(max-width:768px){
+
+header,
+nav{
+padding-left:18px;
+padding-right:18px;
+}
+
+.card{
+padding:18px;
+}
+
+.step{
+flex-direction:column;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="lms-login-overlay">
+
+<div class="lms-login-box">
+
+<div style="font-size:2rem;margin-bottom:8px;">🎓</div>
+
+<h2>GJIMT BCA LMS</h2>
+
+<div class="lms-subtitle">
+BCA with AI Integration · 2026<br>
+Please sign in to continue
+</div>
+
+<input type="text" id="lms-uid" placeholder="User ID">
+
+<input type="password" id="lms-pwd" placeholder="Password">
+
+<button onclick="lmsDoLogin()">Sign In →</button>
+
+<div id="lms-login-error"></div>
+
+<div style="font-size:.74rem;color:#94a3b8;margin-top:14px;line-height:1.5;">
+Students: <b>bca26-ai-01</b> … <b>bca26-ai-10</b><br>
+Faculty: <b>bca26-fac-jyoti</b><br>
+Admin: <b>bca26-admin</b>
+</div>
+
+</div>
+
+</div>
+
+<button class="lms-logout-btn" id="lms-logout-btn" onclick="lmsLogout()">
+⏻ Sign Out
+</button>
+
+<div class="lms-welcome-bar" id="lms-welcome-bar"></div>
+
+<div class="lms-page-content" id="lms-page-content">
+
+<header>
+
+<h1>GJIMT AI Lab — BCA Sem 1 LMS</h1>
+
+<p>
+BCA with AI Integration · 42-Hour Program · Aug–Nov 2026
+</p>
+
+</header>
+
+<nav>
+
+<a href="#">🏠 Home</a>
+<a href="#">📅 Calendar</a>
+<a href="#">📁 Shadow Projects</a>
+<a href="#">📝 GSDC Mock Tests</a>
+<a href="#">👩‍🏫 Faculty Dashboard</a>
+<a href="#" class="active">🔑 User Accounts</a>
+
+</nav>
+
+<div class="container">
+
+<!-- INTRO -->
+
+<div class="card">
+
+<h2>💻 Student Upload & Submission Guide — BCA Sem 1</h2>
+
+<p>
+This guide explains how BCA with AI Integration students must prepare,
+name, organise, and upload their shadow project files for Semester 1.
+Every submission must follow the exact format below.
+</p>
+
+<div style="margin-top:12px">
+
+<a class="btn" href="#naming">📂 File Naming</a>
+<a class="btn" href="#sp1">SP1 Checklist</a>
+<a class="btn" href="#sp2">SP2 Checklist</a>
+<a class="btn" href="#gsdc">GSDC Mock Tests</a>
+<a class="btn" href="#gdrive">Google Drive</a>
+
+</div>
+
+</div>
+
+<!-- FILE NAMING -->
+
+<div class="card" id="naming">
+
+<h2>📂 File Naming Convention</h2>
+
+<p style="margin-bottom:14px">
+Every file must follow this exact format:
+</p>
+
+<div style="background:#f8f9ff;padding:16px;border-radius:8px;font-size:1rem;text-align:center;font-family:monospace;border:1px solid #dde3f0">
+
+<strong>[UserID]_[ProjectCode]_[DocumentType].[extension]</strong>
+
+</div>
+
+<div class="tip">
+
+<strong>Examples:</strong><br>
+
+<span class="file-name">bca26-ai-03_SP1_AlgorithmComparison.pdf</span><br>
+
+<span class="file-name">bca26-ai-04_SP1_CProgram.c</span><br>
+
+<span class="file-name">bca26-ai-02_SP2_UtilityProgram.c</span><br>
+
+<span class="file-name">bca26-ai-09_SP2_UserManual.pdf</span>
+
+</div>
+
+<div class="warn">
+
+❌ Do NOT use spaces in filenames.<br>
+❌ Do NOT rename files after uploading.<br>
+✅ Export reports and documentation as PDF.
+
+</div>
+
+<h3>Semester 1 Shadow Projects</h3>
+
+<table>
+
+<tr>
+<th>Code</th>
+<th>Shadow Project</th>
+<th>Benchmark</th>
+<th>Deadline</th>
+</tr>
+
+<tr>
+<td><strong>SP1</strong></td>
+<td>Algorithm Logic Comparison</td>
+<td>Google</td>
+<td>End of Week 6</td>
+</tr>
+
+<tr>
+<td><strong>SP2</strong></td>
+<td>Utility Program Development</td>
+<td>Microsoft</td>
+<td>End of Week 10</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- SP1 -->
+
+<div class="card" id="sp1">
+
+<h2>📁 SP1 — Algorithm Logic Comparison (Google Benchmark)</h2>
+
+<p>
+<strong>Deadline: End of Week 6</strong>
+</p>
+
+<h3>Theme</h3>
+
+<p>
+Think like a Google engineer while comparing multiple algorithms
+for solving the same programming problem.
+</p>
+
+<h3>What to Submit</h3>
+
+<div class="checklist">
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>1. Problem Selection Note</strong><br>
+
+<span class="file-name">
+[UserID]_SP1_ProblemStatement.pdf
+</span>
+
+<span class="hint">
+Define the programming problem selected for comparison.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>2. Algorithm Comparison Document</strong><br>
+
+<span class="file-name">
+[UserID]_SP1_AlgorithmComparison.pdf
+</span>
+
+<span class="hint">
+Compare 2–3 approaches with logic explanation and performance discussion.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>3. C Program File</strong><br>
+
+<span class="file-name">
+[UserID]_SP1_CProgram.c
+</span>
+
+<span class="hint">
+Well-commented C code.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>4. Test Case Output</strong><br>
+
+<span class="file-name">
+[UserID]_SP1_TestCases.pdf
+</span>
+
+<span class="hint">
+Screenshots of outputs and multiple test cases.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>5. AI Reflection Note</strong><br>
+
+<span class="file-name">
+[UserID]_SP1_AIReflection.pdf
+</span>
+
+<span class="hint">
+Explain how ChatGPT/Gemini helped compare logic approaches.
+</span>
+
+</span>
+</label>
+
+</div>
+
+<div class="tip">
+
+💡 Suggested AI Tools:
+ChatGPT, Gemini, GitHub Copilot
+
+</div>
+
+<a class="btn btn-green" href="https://forms.google.com" target="_blank">
+
+📤 Open SP1 Google Form
+
+</a>
+
+</div>
+
+<!-- SP2 -->
+
+<div class="card" id="sp2">
+
+<h2>📁 SP2 — Utility Program Development (Microsoft Benchmark)</h2>
+
+<p>
+<strong>Deadline: End of Week 10</strong>
+</p>
+
+<h3>Theme</h3>
+
+<p>
+Build a small utility program similar to Microsoft Windows or Office tools.
+</p>
+
+<h3>What to Submit</h3>
+
+<div class="checklist">
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>1. Utility Proposal</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_UtilityProposal.pdf
+</span>
+
+<span class="hint">
+Describe your selected utility and target users.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>2. Specification Sheet</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_Specification.pdf
+</span>
+
+<span class="hint">
+Features, menu structure, input/output rules.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>3. C Program File</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_UtilityProgram.c
+</span>
+
+<span class="hint">
+Fully working utility program with comments.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>4. Output Screenshots</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_OutputScreens.pdf
+</span>
+
+<span class="hint">
+Execution screenshots and menu outputs.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>5. User Manual</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_UserManual.pdf
+</span>
+
+<span class="hint">
+Mini guide explaining how to use the utility.
+</span>
+
+</span>
+</label>
+
+<label>
+<input type="checkbox">
+<span>
+
+<strong>6. AI Reflection Note</strong><br>
+
+<span class="file-name">
+[UserID]_SP2_AIReflection.pdf
+</span>
+
+<span class="hint">
+Explain how AI assisted in coding and documentation.
+</span>
+
+</span>
+</label>
+
+</div>
+
+<div class="tip">
+
+💡 Suggested AI Tools:
+GitHub Copilot, ChatGPT, Notion AI
+
+</div>
+
+<a class="btn btn-green" href="https://forms.google.com" target="_blank">
+
+📤 Open SP2 Google Form
+
+</a>
+
+</div>
+
+<!-- GSDC -->
+
+<div class="card" id="gsdc">
+
+<h2>📝 GSDC Generative AI Foundation Mock Test Submissions</h2>
+
+<p>
+Every Saturday mock test contains MCQs and one scenario-based answer.
+Scenario answers must be submitted separately.
+</p>
+
+<div class="step">
+
+<div class="step-num">1</div>
+
+<div class="step-body">
+
+<h3>Attempt Weekly Mock Test</h3>
+
+<p>
+Complete MCQs and note your score.
+</p>
+
+</div>
+
+</div>
+
+<div class="step">
+
+<div class="step-num">2</div>
+
+<div class="step-body">
+
+<h3>Submit Scenario Answer</h3>
+
+<p>
+Paste your answer in the weekly Google Form shared by faculty.
+</p>
+
+</div>
+
+</div>
+
+<div class="step">
+
+<div class="step-num">3</div>
+
+<div class="step-body">
+
+<h3>Faculty Feedback</h3>
+
+<p>
+Feedback and corrections will be discussed during doubt sessions.
+</p>
+
+</div>
+
+</div>
+
+<div class="warn">
+
+📌 Late submissions after Sunday midnight will be marked as Practice Only.
+
+</div>
+
+<a class="btn" href="https://forms.google.com" target="_blank">
+
+📤 Open Weekly GSDC Form
+
+</a>
+
+</div>
+
+<!-- GOOGLE DRIVE -->
+
+<div class="card" id="gdrive">
+
+<h2>☁️ Google Drive Setup Guide</h2>
+
+<div class="step">
+
+<div class="step-num">1</div>
+
+<div class="step-body">
+
+<h3>Create Main Folder</h3>
+
+<p>
+
+Create:
+
+<span class="file-name">
+[YourUserID]_BCA26_AI_Submissions
+</span>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="step">
+
+<div class="step-num">2</div>
+
+<div class="step-body">
+
+<h3>Create Subfolders</h3>
+
+<p>
+
+<span class="file-name">SP1_AlgorithmComparison</span><br>
+<span class="file-name">SP2_UtilityDevelopment</span>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="step">
+
+<div class="step-num">3</div>
+
+<div class="step-body">
+
+<h3>Enable Sharing</h3>
+
+<p>
+
+Set folder permission to:
+
+<strong>"Anyone with the link can view"</strong>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="tip">
+
+💡 Upload all required files before deadlines.
+
+</div>
+
+</div>
+
+<!-- FINAL CHECKLIST -->
+
+<div class="card">
+
+<h2>✅ Final Submission Checklist</h2>
+
+<div class="checklist">
+
+<label><input type="checkbox"> File names follow naming convention</label>
+
+<label><input type="checkbox"> All files uploaded to correct folder</label>
+
+<label><input type="checkbox"> Google Drive sharing enabled</label>
+
+<label><input type="checkbox"> Google Form completed</label>
+
+<label><input type="checkbox"> AI Reflection included</label>
+
+<label><input type="checkbox"> Test cases attached</label>
+
+<label><input type="checkbox"> Submitted before deadline</label>
+
+</div>
+
+<div class="warn">
+
+⚠️ Missing AI Reflection Notes will result in incomplete evaluation.
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 GJIMT AI Lab · BCA with AI Integration · Powered by GitHub Pages
+
+</footer>
+
+</div>
+
+<script>
+
+(function(){
+
+var USERS = {
+
+'bca26-ai-01':'student@2026',
+'bca26-ai-02':'student@2026',
+'bca26-ai-03':'student@2026',
+'bca26-ai-04':'student@2026',
+'bca26-ai-05':'student@2026',
+'bca26-ai-06':'student@2026',
+'bca26-ai-07':'student@2026',
+'bca26-ai-08':'student@2026',
+'bca26-ai-09':'student@2026',
+'bca26-ai-10':'student@2026',
+
+'bca26-fac-jyoti':'faculty@2026',
+
+'bca26-admin':'admin@2026'
+
+};
+
+var ROLES = {
+
+'bca26-ai-01':'student',
+'bca26-ai-02':'student',
+'bca26-ai-03':'student',
+'bca26-ai-04':'student',
+'bca26-ai-05':'student',
+'bca26-ai-06':'student',
+'bca26-ai-07':'student',
+'bca26-ai-08':'student',
+'bca26-ai-09':'student',
+'bca26-ai-10':'student',
+
+'bca26-fac-jyoti':'faculty',
+
+'bca26-admin':'admin'
+
+};
+
+function getSession(){
+
+try{
+return JSON.parse(sessionStorage.getItem('lmsSession') || 'null');
+}
+catch(e){
+return null;
+}
+
+}
+
+function setSession(uid,role){
+
+sessionStorage.setItem(
+'lmsSession',
+JSON.stringify({uid:uid,role:role})
+);
+
+}
+
+function clearSession(){
+
+sessionStorage.removeItem('lmsSession');
+
+}
+
+function unlock(session){
+
+document.getElementById('lms-login-overlay').style.display='none';
+
+document.getElementById('lms-logout-btn').style.display='block';
+
+var wb=document.getElementById('lms-welcome-bar');
+
+wb.style.display='block';
+
+wb.innerHTML='Signed in as: <strong>' + session.uid + '</strong> (' + session.role + ')';
+
+document.getElementById('lms-page-content').classList.add('unlocked');
+
+}
+
+window.lmsDoLogin=function(){
+
+var uid=document.getElementById('lms-uid').value.trim().toLowerCase();
+
+var pwd=document.getElementById('lms-pwd').value;
+
+var err=document.getElementById('lms-login-error');
+
+if(!USERS[uid]){
+
+err.innerHTML='❌ User ID not found';
+return;
+
+}
+
+if(USERS[uid]!==pwd){
+
+err.innerHTML='❌ Incorrect password';
+return;
+
+}
+
+setSession(uid,ROLES[uid]);
+
+unlock({
+uid:uid,
+role:ROLES[uid]
+});
+
+};
+
+window.lmsLogout=function(){
+
+clearSession();
+
+location.reload();
+
+};
+
+var session=getSession();
+
+if(session && USERS[session.uid]){
+
+unlock(session);
+
+}
+
+})();
+
+</script>
+
+</body>
+</html>

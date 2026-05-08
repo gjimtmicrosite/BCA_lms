@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GJIMT AI Lab LMS — BCA Sem 1</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f4f7fb;
+  color:#1e293b;
+}
+
+/* HEADER */
+
+header{
+  background:linear-gradient(135deg,#0f172a,#1e3a5f);
+  color:#fff;
+  padding:20px 40px;
+}
+
+header h1{
+  font-size:1.7rem;
+  font-weight:700;
+}
+
+header p{
+  margin-top:6px;
+  font-size:.9rem;
+  opacity:.85;
+}
+
+/* NAVBAR */
+
+nav{
+  background:#16213e;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:12px 40px;
+}
+
+nav a{
+  color:#e2e8f0;
+  text-decoration:none;
+  padding:8px 16px;
+  border-radius:6px;
+  transition:.3s;
+  font-size:.9rem;
+}
+
+nav a:hover{
+  background:#2563eb;
+  color:#fff;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+/* CARDS */
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:24px;
+  margin-bottom:24px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.card h2{
+  color:#0f172a;
+  margin-bottom:14px;
+  font-size:1.25rem;
+}
+
+.card h3{
+  margin-top:12px;
+  margin-bottom:8px;
+  color:#1e3a5f;
+}
+
+/* DASHBOARD GRID */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;
+  margin-top:24px;
+}
+
+.dashboard-box{
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+  border-radius:12px;
+  padding:22px;
+  text-align:center;
+  transition:.3s;
+  text-decoration:none;
+  color:#111827;
+}
+
+.dashboard-box:hover{
+  transform:translateY(-5px);
+  box-shadow:0 6px 18px rgba(37,99,235,.15);
+}
+
+.dashboard-box .icon{
+  font-size:2.3rem;
+  margin-bottom:10px;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+}
+
+th{
+  background:#1e3a5f;
+  color:#fff;
+  text-align:left;
+  padding:12px;
+  font-size:.9rem;
+}
+
+td{
+  padding:12px;
+  border-bottom:1px solid #e5e7eb;
+  font-size:.92rem;
+}
+
+tr:hover td{
+  background:#f8fbff;
+}
+
+/* BADGES */
+
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:.75rem;
+  font-weight:600;
+}
+
+.badge-google{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.badge-microsoft{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+/* BUTTONS */
+
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  color:#fff;
+  background:#2563eb;
+  transition:.3s;
+  margin-top:10px;
+  font-size:.88rem;
+}
+
+.btn:hover{
+  background:#1d4ed8;
+}
+
+/* PHASE BOX */
+
+.phase-box{
+  background:#f8fafc;
+  border-left:5px solid #2563eb;
+  padding:16px;
+  border-radius:0 8px 8px 0;
+  margin-top:14px;
+}
+
+.phase-box.green{
+  border-color:#16a34a;
+}
+
+.phase-box.orange{
+  border-color:#ea580c;
+}
+
+/* LOGIN SYSTEM */
+
+#lms-login-overlay{
+  display:flex;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#0f172a,#1e3a5f);
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+
+.lms-login-box{
+  width:360px;
+  background:#fff;
+  border-radius:18px;
+  padding:36px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.lms-login-box h2{
+  color:#0f172a;
+  margin-bottom:6px;
+}
+
+.lms-login-box p{
+  color:#64748b;
+  font-size:.84rem;
+  margin-bottom:22px;
+}
+
+.lms-login-box input{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:.92rem;
+}
+
+.lms-login-box button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.lms-login-box button:hover{
+  background:#1d4ed8;
+}
+
+#lms-login-error{
+  margin-top:10px;
+  color:#dc2626;
+  font-size:.82rem;
+}
+
+/* WELCOME BAR */
+
+.lms-welcome-bar{
+  background:#0f172a;
+  color:#cbd5e1;
+  padding:6px;
+  text-align:center;
+  font-size:.8rem;
+  display:none;
+}
+
+.lms-page-content{
+  display:none;
+}
+
+.lms-page-content.unlocked{
+  display:block;
+}
+
+.lms-logout-btn{
+  position:fixed;
+  top:12px;
+  right:16px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  display:none;
+  z-index:9999;
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:22px;
+  color:#64748b;
+  font-size:.82rem;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  header{
+    padding:18px 20px;
+  }
+
+  nav{
+    padding:10px 20px;
+  }
+
+  .container{
+    padding:0 14px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  table{
+    display:block;
+    overflow:auto;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="lms-login-overlay">
+
+  <div class="lms-login-box">
+
+    <div style="font-size:2rem;margin-bottom:8px;">💻</div>
+
+    <h2>BCA with AI Integration</h2>
+
+    <p>
+      GJIMT AI Lab · Semester 1 LMS<br>
+      Sign in to continue
+    </p>
+
+    <input type="text" id="lms-uid" placeholder="User ID">
+
+    <input type="password" id="lms-pwd" placeholder="Password">
+
+    <button onclick="lmsDoLogin()">Sign In →</button>
+
+    <div id="lms-login-error"></div>
+
+    <p style="margin-top:16px;font-size:.75rem;">
+      Students: bca26-ai-01 → bca26-ai-10<br>
+      Faculty: bca26-fac-jyoti
+    </p>
+
+  </div>
+
+</div>
+
+<button class="lms-logout-btn" id="lms-logout-btn" onclick="lmsLogout()">
+⏻ Sign Out
+</button>
+
+<div class="lms-welcome-bar" id="lms-welcome-bar"></div>
+
+<!-- PAGE CONTENT -->
+
+<div id="lms-page-content" class="lms-page-content">
+
+<header>
+
+  <h1>GJIMT AI Lab — BCA Sem 1 LMS</h1>
+
+  <p>
+    BCA with AI Integration · 42 Hour Program · 2026
+  </p>
+
+</header>
+
+<nav>
+
+  <a href="index.html">🏠 Home</a>
+  <a href="calendar.html">📅 Calendar</a>
+  <a href="projects.html">📁 Shadow Projects</a>
+  <a href="mock.html">📝 Mock Tests</a>
+  <a href="faculty.html">👩‍🏫 Faculty Dashboard</a>
+  <a href="users.html">🔑 Users</a>
+
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+
+  <div class="card">
+
+    <h2>Welcome to BCA with AI Integration — Semester 1</h2>
+
+    <p style="line-height:1.8;">
+      This LMS delivers the 
+      <strong>GSDC Generative AI Foundation Certification</strong>
+      along with industry-benchmarked shadow projects inspired by
+      Google and Microsoft engineering practices.
+    </p>
+
+    <div class="dashboard-grid">
+
+      <a href="#" class="dashboard-box">
+        <div class="icon">📅</div>
+        <h3>42 Hour Calendar</h3>
+        <p>Weekly roadmap & sessions</p>
+      </a>
+
+      <a href="#" class="dashboard-box">
+        <div class="icon">📁</div>
+        <h3>Shadow Projects</h3>
+        <p>Google & Microsoft benchmarks</p>
+      </a>
+
+      <a href="#" class="dashboard-box">
+        <div class="icon">📝</div>
+        <h3>Mock Tests</h3>
+        <p>Weekly GSDC preparation</p>
+      </a>
+
+      <a href="#" class="dashboard-box">
+        <div class="icon">👩‍🏫</div>
+        <h3>Faculty Dashboard</h3>
+        <p>Rubrics & evaluation</p>
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- OVERVIEW -->
+
+  <div class="card">
+
+    <h2>Program Overview</h2>
+
+    <table>
+
+      <tr>
+        <th>Item</th>
+        <th>Detail</th>
+      </tr>
+
+      <tr>
+        <td>Program</td>
+        <td>BCA with AI Integration</td>
+      </tr>
+
+      <tr>
+        <td>Faculty In-Charge</td>
+        <td>Jyoti</td>
+      </tr>
+
+      <tr>
+        <td>GSDC Certification</td>
+        <td>GSDC Generative AI Foundation Certification</td>
+      </tr>
+
+      <tr>
+        <td>Duration</td>
+        <td>42 Hours · August – November 2026</td>
+      </tr>
+
+      <tr>
+        <td>Batch Strength</td>
+        <td>10 Students</td>
+      </tr>
+
+      <tr>
+        <td>Shadow Project 1</td>
+        <td>
+          Algorithm Logic Comparison
+          <span class="badge badge-google">Google Benchmark</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Shadow Project 2</td>
+        <td>
+          Utility Program Development
+          <span class="badge badge-microsoft">Microsoft Benchmark</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>AI Tools Used</td>
+        <td>ChatGPT · GitHub Copilot · Notion AI</td>
+      </tr>
+
+      <tr>
+        <td>Delivery Model</td>
+        <td>Manual reasoning first → AI augmentation → Reflection</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!-- SHADOW PROJECTS -->
+
+  <div class="card">
+
+    <h2>Benchmarked Shadow Projects</h2>
+
+    <div class="phase-box">
+
+      <h3>
+        Shadow Project 1 —
+        Algorithm Logic Comparison
+      </h3>
+
+      <p style="margin-top:8px;line-height:1.8;">
+        Students compare multiple C programming logic approaches
+        for the same problem and justify which solution is better
+        based on readability, performance, scalability, and robustness.
+      </p>
+
+      <p style="margin-top:10px;">
+        Benchmark Inspiration:
+        <span class="badge badge-google">Google Engineering</span>
+      </p>
+
+    </div>
+
+    <div class="phase-box green">
+
+      <h3>
+        Shadow Project 2 —
+        Utility Program Development
+      </h3>
+
+      <p style="margin-top:8px;line-height:1.8;">
+        Students develop a menu-driven utility program inspired by
+        Microsoft productivity tools with clean prompts, proper
+        documentation, and robust error handling.
+      </p>
+
+      <p style="margin-top:10px;">
+        Benchmark Inspiration:
+        <span class="badge badge-microsoft">Microsoft Utilities</span>
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- QUICK LINKS -->
+
+  <div class="card">
+
+    <h2>Quick Links</h2>
+
+    <a class="btn" href="https://www.gsdcouncil.org/" target="_blank">
+      GSDC Official Website
+    </a>
+
+    <a class="btn" href="https://chat.openai.com/" target="_blank">
+      Open ChatGPT
+    </a>
+
+    <a class="btn" href="https://github.com/features/copilot" target="_blank">
+      GitHub Copilot
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+© 2026 GJIMT AI Lab · BCA with AI Integration · Semester 1 LMS
+</footer>
+
+</div>
+
+<script>
+
+(function(){
+
+  var USERS = {
+
+    'bca26-ai-01':'student@2026',
+    'bca26-ai-02':'student@2026',
+    'bca26-ai-03':'student@2026',
+    'bca26-ai-04':'student@2026',
+    'bca26-ai-05':'student@2026',
+    'bca26-ai-06':'student@2026',
+    'bca26-ai-07':'student@2026',
+    'bca26-ai-08':'student@2026',
+    'bca26-ai-09':'student@2026',
+    'bca26-ai-10':'student@2026',
+
+    'bca26-fac-jyoti':'faculty@2026',
+
+    'bca26-admin':'admin@2026'
+
+  };
+
+  var ROLES = {
+
+    'bca26-ai-01':'student',
+    'bca26-ai-02':'student',
+    'bca26-ai-03':'student',
+    'bca26-ai-04':'student',
+    'bca26-ai-05':'student',
+    'bca26-ai-06':'student',
+    'bca26-ai-07':'student',
+    'bca26-ai-08':'student',
+    'bca26-ai-09':'student',
+    'bca26-ai-10':'student',
+
+    'bca26-fac-jyoti':'faculty',
+
+    'bca26-admin':'admin'
+
+  };
+
+  function unlock(uid,role){
+
+    document.getElementById('lms-login-overlay').style.display='none';
+
+    document.getElementById('lms-page-content').classList.add('unlocked');
+
+    document.getElementById('lms-logout-btn').style.display='block';
+
+    var wb=document.getElementById('lms-welcome-bar');
+
+    wb.style.display='block';
+
+    wb.innerHTML='Signed in as: <b>'+uid+'</b> ('+role+')';
+
+  }
+
+  window.lmsDoLogin=function(){
+
+    var uid=document.getElementById('lms-uid').value.trim().toLowerCase();
+
+    var pwd=document.getElementById('lms-pwd').value.trim();
+
+    var err=document.getElementById('lms-login-error');
+
+    if(!USERS[uid]){
+      err.innerHTML='❌ User not found';
+      return;
+    }
+
+    if(USERS[uid]!==pwd){
+      err.innerHTML='❌ Incorrect password';
+      return;
+    }
+
+    sessionStorage.setItem('bca_lms_user',uid);
+
+    unlock(uid,ROLES[uid]);
+
+  }
+
+  window.lmsLogout=function(){
+
+    sessionStorage.removeItem('bca_lms_user');
+
+    location.reload();
+
+  }
+
+  var saved=sessionStorage.getItem('bca_lms_user');
+
+  if(saved && USERS[saved]){
+
+    unlock(saved,ROLES[saved]);
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>

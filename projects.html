@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Projects — GJIMT BCA AI LMS</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#f4f6fb;
+  color:#1a1a2e;
+  line-height:1.6;
+}
+
+/* ================= HEADER ================= */
+
+header{
+  background:linear-gradient(135deg,#0f3460,#16213e);
+  color:#fff;
+  padding:22px 32px;
+  box-shadow:0 4px 14px rgba(0,0,0,.15);
+}
+
+header h1{
+  font-size:1.7rem;
+  margin-bottom:6px;
+}
+
+header p{
+  font-size:.92rem;
+  opacity:.88;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+  background:#16213e;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:10px 32px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+nav a{
+  text-decoration:none;
+  color:#e2e8f0;
+  padding:8px 16px;
+  border-radius:6px;
+  font-size:.88rem;
+  transition:.25s;
+}
+
+nav a:hover,
+nav a.active{
+  background:#0f3460;
+  color:#fff;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+  max-width:1180px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+/* ================= CARDS ================= */
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:28px;
+  margin-bottom:24px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  border:1px solid #e7ecf5;
+}
+
+.card h2{
+  color:#0f3460;
+  margin-bottom:14px;
+  font-size:1.3rem;
+}
+
+.card h3{
+  color:#16213e;
+  margin-top:18px;
+  margin-bottom:10px;
+  font-size:1.02rem;
+}
+
+.card p{
+  font-size:.94rem;
+  color:#444;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn{
+  display:inline-block;
+  padding:9px 18px;
+  background:#0f3460;
+  color:#fff;
+  border-radius:7px;
+  text-decoration:none;
+  font-size:.86rem;
+  margin:4px 4px 0 0;
+  transition:.25s;
+}
+
+.btn:hover{
+  background:#16213e;
+  transform:translateY(-2px);
+}
+
+/* ================= BADGES ================= */
+
+.badge{
+  display:inline-block;
+  padding:5px 12px;
+  border-radius:30px;
+  font-size:.72rem;
+  font-weight:700;
+  margin-left:8px;
+  vertical-align:middle;
+}
+
+.badge-proj{
+  background:#dbeafe;
+  color:#0f3460;
+}
+
+.badge-mock{
+  background:#dcfce7;
+  color:#166534;
+}
+
+/* ================= PHASE BOXES ================= */
+
+.phase-box{
+  padding:18px;
+  border-radius:12px;
+  margin-top:16px;
+  border-left:5px solid;
+}
+
+.phase-box ul{
+  padding-left:18px;
+}
+
+.phase-box li{
+  margin-bottom:8px;
+  font-size:.92rem;
+}
+
+.manual{
+  background:#f8fbff;
+  border-color:#2563eb;
+}
+
+.ai{
+  background:#f6fff8;
+  border-color:#16a34a;
+}
+
+/* ================= LOGIN SYSTEM ================= */
+
+#lms-login-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);
+  z-index:99999;
+  align-items:center;
+  justify-content:center;
+}
+
+#lms-login-overlay.active{
+  display:flex;
+}
+
+.lms-login-box{
+  width:360px;
+  background:#fff;
+  border-radius:18px;
+  padding:40px 34px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.lms-logo{
+  font-size:2.2rem;
+  margin-bottom:8px;
+}
+
+.lms-login-box h2{
+  color:#0f172a;
+  margin-bottom:6px;
+}
+
+.lms-subtitle{
+  font-size:.82rem;
+  color:#64748b;
+  margin-bottom:22px;
+}
+
+.lms-login-box input{
+  width:100%;
+  padding:12px 14px;
+  border:1.5px solid #dbe2ea;
+  border-radius:8px;
+  margin-bottom:12px;
+  font-size:.94rem;
+  outline:none;
+}
+
+.lms-login-box input:focus{
+  border-color:#2563eb;
+}
+
+.lms-login-box button{
+  width:100%;
+  padding:12px;
+  background:#2563eb;
+  border:none;
+  color:#fff;
+  border-radius:8px;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.lms-login-box button:hover{
+  background:#1d4ed8;
+}
+
+#lms-login-error{
+  color:#dc2626;
+  font-size:.82rem;
+  margin-top:8px;
+  min-height:18px;
+}
+
+.lms-hint{
+  font-size:.75rem;
+  color:#94a3b8;
+  margin-top:14px;
+  line-height:1.6;
+}
+
+/* ================= PAGE CONTENT ================= */
+
+.lms-page-content{
+  display:none;
+}
+
+.lms-page-content.unlocked{
+  display:block;
+}
+
+/* ================= TOP BAR ================= */
+
+.lms-welcome-bar{
+  background:#0f172a;
+  color:#cbd5e1;
+  text-align:center;
+  padding:7px;
+  font-size:.8rem;
+  letter-spacing:.4px;
+}
+
+.lms-logout-btn{
+  position:fixed;
+  top:12px;
+  right:14px;
+  z-index:9999;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  border-radius:7px;
+  padding:7px 14px;
+  cursor:pointer;
+  font-size:.8rem;
+  font-weight:600;
+}
+
+.lms-logout-btn:hover{
+  background:#dc2626;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  margin-top:40px;
+  background:#16213e;
+  color:#cbd5e1;
+  text-align:center;
+  padding:18px;
+  font-size:.84rem;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  header{
+    padding:20px;
+  }
+
+  nav{
+    padding:10px 18px;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+  .badge{
+    display:block;
+    margin:8px 0 0;
+    width:max-content;
+  }
+
+  .lms-login-box{
+    width:92%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN SYSTEM ================= -->
+
+<div id="lms-login-overlay" class="active">
+
+  <div class="lms-login-box">
+
+    <div class="lms-logo">🎓</div>
+
+    <h2>GJIMT BCA LMS</h2>
+
+    <div class="lms-subtitle">
+      BCA with AI Integration · 2026<br>
+      Please sign in to continue
+    </div>
+
+    <input type="text" id="lms-uid" placeholder="User ID">
+
+    <input type="password" id="lms-pwd" placeholder="Password"
+    onkeydown="if(event.key==='Enter') lmsDoLogin()">
+
+    <button onclick="lmsDoLogin()">Sign In →</button>
+
+    <div id="lms-login-error"></div>
+
+    <div class="lms-hint">
+      Students: <b>bca26-ai-01</b> … <b>bca26-ai-10</b><br>
+      Faculty: <b>bca26-faculty</b> &nbsp;|&nbsp;
+      Admin: <b>bca26-admin</b><br>
+      Contact faculty if you cannot sign in.
+    </div>
+
+  </div>
+
+</div>
+
+<button class="lms-logout-btn"
+id="lms-logout-btn"
+style="display:none"
+onclick="lmsLogout()">
+⏻ Logout
+</button>
+
+<div class="lms-welcome-bar"
+id="lms-welcome-bar"
+style="display:none"></div>
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div id="lms-page-content" class="lms-page-content">
+
+<header>
+  <div>
+    <h1>GJIMT AI Lab — BCA with AI Integration LMS</h1>
+
+    <p>
+      BCA with Artificial Intelligence · Practical AI Integrated Program · 2026 · Batch of 10
+    </p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="calendar.html">📅 Calendar</a>
+  <a href="projects.html" class="active">📁 Shadow Projects</a>
+  <a href="mock.html">📝 Mock Tests</a>
+  <a href="faculty.html">👩‍🏫 Faculty Dashboard</a>
+  <a href="users.html">🔑 Users</a>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>💻 4 AI Integrated Practical Projects — BCA with AI</h2>
+
+    <p>
+      Each project follows a structured 4-phase learning framework:
+      <strong>
+      Problem Understanding → Manual Development → Data & Logic → AI Enhancement.
+      </strong>
+
+      Students must complete the manual development phases before accessing AI-assisted tools and automation.
+    </p>
+
+    <div style="margin-top:14px">
+      <a class="btn" href="#P1">P1: AI Website Analyzer</a>
+      <a class="btn" href="#P2">P2: Smart Chatbot</a>
+      <a class="btn" href="#P3">P3: Startup Website Clone</a>
+      <a class="btn" href="#P4">P4: AI Dashboard</a>
+    </div>
+
+  </div>
+
+  <!-- ================= PROJECT 1 ================= -->
+
+  <div class="card" id="P1">
+
+    <h2>
+      🌐 P1: AI Website Performance Analyzer
+
+      <span class="badge badge-proj">
+        HTML · CSS · JavaScript
+      </span>
+
+      <span class="badge badge-mock">
+        Weeks 1–4
+      </span>
+    </h2>
+
+    <p>
+      <strong>Objective:</strong>
+
+      Build a responsive website analyzer that evaluates website speed,
+      SEO basics, responsiveness, and UI quality using AI-generated insights.
+    </p>
+
+    <p style="margin-top:8px">
+      <strong>AI Tools:</strong>
+
+      ChatGPT · Google Lighthouse · Canva AI · GitHub Copilot
+    </p>
+
+    <h3>📋 4-Phase Framework</h3>
+
+    <div class="phase-box manual">
+
+      <strong>🔵 Phase 1 — Website Research & Planning</strong>
+
+      <ul>
+        <li>Study 3 modern websites and identify UI components</li>
+        <li>Learn responsive layout basics</li>
+        <li>Create wireframe on paper</li>
+        <li>Prepare color palette and typography selection</li>
+        <li>Deliverable: Website wireframe + planning document</li>
+      </ul>
+
+    </div>
+
+    <div class="phase-box manual">
+
+      <strong>🟠 Phase 2 — Manual Frontend Development</strong>
+
+      <ul>
+        <li>Create website using HTML, CSS, and JavaScript</li>
+        <li>Build navigation, hero section, cards, forms, and footer</li>
+        <li>Implement responsive mobile layout manually</li>
+        <li>Validate all links and UI interactions</li>
+        <li>Deliverable: Functional responsive website</li>
+      </ul>
+
+    </div>
+
+    <div class="phase-box manual">
+
+      <strong>🟢 Phase 3 — Performance & Data Analysis</strong>
+
+      <ul>
+        <li>Run Lighthouse performance tests</li>
+        <li>Analyze SEO score and accessibility</li>
+        <li>Create performance comparison table</li>
+        <li>Write Before AI analysis note</li>
+        <li>Deliverable: Website audit report</li>
+      </ul>
+
+    </div>
+
+    <div class="phase-box ai">
+
+      <strong>🤖 Phase 4 — AI Enhancement Lab</strong>
+
+      <ul>
+        <li>Use ChatGPT to improve SEO tags and UI text</li>
+        <li>Generate AI-based UI suggestions</li>
+        <li>Use Canva AI for graphics and banners</li>
+        <li>Generate AI accessibility recommendations</li>
+        <li>Create final presentation with AI comparison</li>
+        <li>Deliverable: Enhanced website + AI reflection report + Viva</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <!-- ================= PROJECT 2 ================= -->
+
+  <div class="card" id="P2">
+
+    <h2>
+      🤖 P2: Smart AI Chatbot Development
+
+      <span class="badge badge-proj">
+        JavaScript · AI APIs
+      </span>
+
+      <span class="badge badge-mock">
+        Weeks 5–7
+      </span>
+    </h2>
+
+    <p>
+      <strong>Objective:</strong>
+
+      Develop a browser-based AI chatbot capable of answering
+      student or customer queries.
+    </p>
+
+    <p style="margin-top:8px">
+      <strong>AI Tools:</strong>
+
+      ChatGPT API · Dialogflow · JavaScript · Firebase
+    </p>
+
+    <h3>📋 4-Phase Framework</h3>
+
+    <div class="phase-box manual">
+      <strong>🔵 Phase 1 — Chatbot Planning</strong>
+
+      <ul>
+        <li>Study chatbot workflows</li>
+        <li>Prepare conversation flow diagram</li>
+        <li>Identify common user queries</li>
+        <li>Create chatbot response structure</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟠 Phase 2 — Core Development</strong>
+
+      <ul>
+        <li>Build chatbot UI using HTML/CSS</li>
+        <li>Create message handling system in JavaScript</li>
+        <li>Implement predefined responses</li>
+        <li>Test multiple conversation flows</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟢 Phase 3 — Data & Testing</strong>
+
+      <ul>
+        <li>Test chatbot accuracy</li>
+        <li>Record response timing</li>
+        <li>Prepare chatbot training questions</li>
+        <li>Write testing summary report</li>
+      </ul>
+    </div>
+
+    <div class="phase-box ai">
+      <strong>🤖 Phase 4 — AI Integration</strong>
+
+      <ul>
+        <li>Integrate ChatGPT API</li>
+        <li>Add AI-generated smart replies</li>
+        <li>Implement sentiment-based responses</li>
+        <li>Improve conversational flow using prompts</li>
+        <li>Deliverable: AI chatbot + deployment + viva</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ================= PROJECT 3 ================= -->
+
+  <div class="card" id="P3">
+
+    <h2>
+      🚀 P3: Startup Website Clone with AI Features
+
+      <span class="badge badge-proj">
+        React · UI/UX
+      </span>
+
+      <span class="badge badge-mock">
+        Weeks 8–10
+      </span>
+    </h2>
+
+    <p>
+      <strong>Objective:</strong>
+
+      Recreate and enhance a startup/company website
+      with AI-powered features.
+    </p>
+
+    <p style="margin-top:8px">
+      <strong>AI Tools:</strong>
+
+      ChatGPT · Figma AI · GitHub Copilot · Canva AI
+    </p>
+
+    <h3>📋 4-Phase Framework</h3>
+
+    <div class="phase-box manual">
+      <strong>🔵 Phase 1 — Website Analysis</strong>
+
+      <ul>
+        <li>Select startup website</li>
+        <li>Analyze UI components and layout</li>
+        <li>Create page structure and flow</li>
+        <li>Prepare feature comparison sheet</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟠 Phase 2 — Frontend Clone Development</strong>
+
+      <ul>
+        <li>Develop responsive clone layout</li>
+        <li>Create reusable UI components</li>
+        <li>Add animations and transitions</li>
+        <li>Build forms and navigation systems</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟢 Phase 3 — Feature Enhancement</strong>
+
+      <ul>
+        <li>Optimize responsiveness</li>
+        <li>Improve loading performance</li>
+        <li>Add dark mode or advanced UI features</li>
+        <li>Create comparison report</li>
+      </ul>
+    </div>
+
+    <div class="phase-box ai">
+      <strong>🤖 Phase 4 — AI Powered Improvements</strong>
+
+      <ul>
+        <li>Generate AI UI suggestions</li>
+        <li>Create AI-generated graphics</li>
+        <li>Use Copilot for component optimization</li>
+        <li>Implement AI text generation</li>
+        <li>Deliverable: Enhanced startup website clone + presentation</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ================= PROJECT 4 ================= -->
+
+  <div class="card" id="P4">
+
+    <h2>
+      📊 P4: AI Analytics Dashboard
+
+      <span class="badge badge-proj">
+        Power BI · JavaScript
+      </span>
+
+      <span class="badge badge-mock">
+        Weeks 11–12
+      </span>
+    </h2>
+
+    <p>
+      <strong>Objective:</strong>
+
+      Build a modern analytics dashboard with AI-generated insights and data visualization.
+    </p>
+
+    <p style="margin-top:8px">
+      <strong>AI Tools:</strong>
+
+      Power BI · Excel AI · ChatGPT · Google Looker Studio
+    </p>
+
+    <h3>📋 4-Phase Framework</h3>
+
+    <div class="phase-box manual">
+      <strong>🔵 Phase 1 — Dashboard Planning</strong>
+
+      <ul>
+        <li>Select dashboard domain</li>
+        <li>Identify KPIs and charts</li>
+        <li>Create layout wireframe</li>
+        <li>Prepare dataset structure</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟠 Phase 2 — Data Handling</strong>
+
+      <ul>
+        <li>Clean and organize dataset</li>
+        <li>Create pivot tables</li>
+        <li>Perform manual calculations</li>
+        <li>Validate charts and values</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual">
+      <strong>🟢 Phase 3 — Dashboard Creation</strong>
+
+      <ul>
+        <li>Create KPI cards and visualizations</li>
+        <li>Build charts and filters</li>
+        <li>Enable responsive dashboard view</li>
+        <li>Prepare dashboard summary</li>
+      </ul>
+    </div>
+
+    <div class="phase-box ai">
+      <strong>🤖 Phase 4 — AI Insights Integration</strong>
+
+      <ul>
+        <li>Generate AI-based analytics insights</li>
+        <li>Add smart recommendation engine</li>
+        <li>Create natural language dashboard summary</li>
+        <li>Implement AI forecasting visuals</li>
+        <li>Deliverable: AI analytics dashboard + viva</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 GJIMT AI Lab · BCA with AI Integration Program · Powered by GitHub Pages
+</footer>
+
+</div>
+
+<!-- ================= LOGIN SCRIPT ================= -->
+
+<script>
+
+var USERS = {
+  'bca26-ai-01':'student@2026',
+  'bca26-ai-02':'student@2026',
+  'bca26-ai-03':'student@2026',
+  'bca26-ai-04':'student@2026',
+  'bca26-ai-05':'student@2026',
+  'bca26-ai-06':'student@2026',
+  'bca26-ai-07':'student@2026',
+  'bca26-ai-08':'student@2026',
+  'bca26-ai-09':'student@2026',
+  'bca26-ai-10':'student@2026',
+
+  'bca26-faculty':'faculty@2026',
+  'bca26-admin':'admin@2026'
+};
+
+var ROLES = {
+  'bca26-ai-01':'student',
+  'bca26-ai-02':'student',
+  'bca26-ai-03':'student',
+  'bca26-ai-04':'student',
+  'bca26-ai-05':'student',
+  'bca26-ai-06':'student',
+  'bca26-ai-07':'student',
+  'bca26-ai-08':'student',
+  'bca26-ai-09':'student',
+  'bca26-ai-10':'student',
+
+  'bca26-faculty':'faculty',
+  'bca26-admin':'admin'
+};
+
+var ALLOWED = ['student','faculty','admin'];
+
+function getSession(){
+  try{
+    return JSON.parse(sessionStorage.getItem('lmsSession') || 'null');
+  }
+  catch(e){
+    return null;
+  }
+}
+
+function setSession(uid,role){
+  sessionStorage.setItem(
+    'lmsSession',
+    JSON.stringify({uid:uid,role:role})
+  );
+}
+
+function clearSession(){
+  sessionStorage.removeItem('lmsSession');
+}
+
+function unlock(session){
+
+  document
+  .getElementById('lms-login-overlay')
+  .classList
+  .remove('active');
+
+  document
+  .getElementById('lms-logout-btn')
+  .style.display='block';
+
+  var wb=document.getElementById('lms-welcome-bar');
+
+  wb.style.display='block';
+
+  wb.innerHTML=
+  'Signed in as: <strong>'+
+  session.uid+
+  '</strong> ('+
+  session.role+
+  ') | BCA with AI Integration Program 2026';
+
+  document
+  .getElementById('lms-page-content')
+  .classList
+  .add('unlocked');
+}
+
+window.lmsDoLogin=function(){
+
+  var uid=document
+  .getElementById('lms-uid')
+  .value
+  .trim()
+  .toLowerCase();
+
+  var pwd=document
+  .getElementById('lms-pwd')
+  .value
+  .trim();
+
+  var err=document.getElementById('lms-login-error');
+
+  if(!USERS[uid]){
+    err.innerHTML='❌ User ID not found';
+    return;
+  }
+
+  if(USERS[uid]!==pwd){
+    err.innerHTML='❌ Incorrect password';
+    return;
+  }
+
+  var role=ROLES[uid];
+
+  if(ALLOWED.indexOf(role)===-1){
+    err.innerHTML='⛔ Access denied';
+    return;
+  }
+
+  setSession(uid,role);
+
+  unlock({
+    uid:uid,
+    role:role
+  });
+};
+
+window.lmsLogout=function(){
+
+  clearSession();
+
+  document
+  .getElementById('lms-login-overlay')
+  .classList
+  .add('active');
+
+  document
+  .getElementById('lms-logout-btn')
+  .style.display='none';
+
+  document
+  .getElementById('lms-welcome-bar')
+  .style.display='none';
+
+  document
+  .getElementById('lms-page-content')
+  .classList
+  .remove('unlocked');
+
+  document.getElementById('lms-uid').value='';
+  document.getElementById('lms-pwd').value='';
+  document.getElementById('lms-login-error').innerHTML='';
+};
+
+var session=getSession();
+
+if(
+  session &&
+  USERS[session.uid] &&
+  ROLES[session.uid]===session.role
+){
+  unlock(session);
+}
+
+</script>
+
+</body>
+</html>
