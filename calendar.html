@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>42-Hour Calendar — BCA with AI LMS</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6fb;color:#1a1a2e}
+  header{background:linear-gradient(135deg,#0f3460,#16213e);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
+  header h1{font-size:1.4rem;font-weight:700}
+  header p{font-size:.82rem;opacity:.8}
+  nav{background:#16213e;display:flex;flex-wrap:wrap;gap:4px;padding:8px 32px}
+  nav a{color:#e0e0e0;text-decoration:none;padding:6px 14px;border-radius:4px;font-size:.85rem;transition:.2s}
+  nav a:hover,nav a.active{background:#0f3460;color:#fff}
+  .container{max-width:1100px;margin:28px auto;padding:0 20px}
+  .card{background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:24px;margin-bottom:20px}
+  .card h2{color:#0f3460;margin-bottom:12px;font-size:1.1rem}
+  .card h3{color:#16213e;margin:14px 0 8px;font-size:.97rem}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th{background:#0f3460;color:#fff;padding:9px 12px;text-align:left}
+  td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+  tr:hover td{background:#f0f4ff}
+  .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.75rem;font-weight:600}
+  .badge-proj{background:#e3f2fd;color:#0f3460}
+  .badge-ai{background:#e8f5e9;color:#1b5e20}
+  .badge-viva{background:#fff3e0;color:#e65100}
+  .badge-review{background:#f3e5f5;color:#6a1b9a}
+  .btn{display:inline-block;padding:8px 18px;background:#0f3460;color:#fff;border-radius:6px;text-decoration:none;font-size:.85rem;margin:4px 2px;border:none;cursor:pointer}
+  .btn:hover{background:#16213e}
+  .btn-green{background:#2e7d32}.btn-green:hover{background:#1b5e20}.btn-orange{background:#e65100}
+  ul,ol{padding-left:20px;margin:8px 0}li{margin:4px 0;font-size:.9rem}
+  .phase-box{border-left:4px solid #0f3460;padding:10px 14px;margin:8px 0;background:#f8f9ff;border-radius:0 6px 6px 0}
+  .phase-box.ai{border-color:#2e7d32}.phase-box.manual{border-color:#e65100}
+  .hint{font-size:.8rem;color:#666;margin-top:6px}
+  footer{text-align:center;padding:18px;font-size:.8rem;color:#888;margin-top:30px}
+  table td:first-child{width:40px}
+</style>
+<style>
+#lms-login-overlay{display:none;position:fixed;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);z-index:99999;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;}
+#lms-login-overlay.active{display:flex;}
+.lms-login-box{background:#fff;border-radius:18px;padding:40px 36px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;}
+.lms-login-box .lms-logo{font-size:2rem;margin-bottom:4px;}
+.lms-login-box h2{font-size:1.25rem;color:#0f172a;margin:0 0 4px;}
+.lms-login-box .lms-subtitle{font-size:.78rem;color:#64748b;margin-bottom:24px;}
+.lms-login-box input{width:100%;box-sizing:border-box;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.95rem;margin-bottom:12px;outline:none;transition:border .2s;}
+.lms-login-box input:focus{border-color:#3b82f6;}
+.lms-login-box button{width:100%;padding:12px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:4px;transition:background .2s;}
+.lms-login-box button:hover{background:#2563eb;}
+#lms-login-error{color:#ef4444;font-size:.82rem;margin-top:8px;min-height:18px;}
+.lms-login-box .lms-hint{font-size:.73rem;color:#94a3b8;margin-top:14px;line-height:1.5;}
+.lms-page-content{display:none;}
+.lms-page-content.unlocked{display:block;}
+.lms-logout-btn{position:fixed;top:12px;right:16px;z-index:9999;background:#ef4444;color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:.8rem;cursor:pointer;font-weight:600;}
+.lms-logout-btn:hover{background:#dc2626;}
+.lms-welcome-bar{background:#0f172a;color:#94a3b8;font-size:.78rem;text-align:center;padding:5px;letter-spacing:.5px;}
+</style>
+</head><body>
+<div id="lms-login-overlay" class="active">
+  <div class="lms-login-box">
+    <div class="lms-logo">🎓</div>
+    <h2>GJIMT BCA LMS</h2>
+    <div class="lms-subtitle">BCA with AI Integration · 2026<br>Please sign in to continue</div>
+    <input type="text" id="lms-uid" placeholder="User ID" autocomplete="username" />
+    <input type="password" id="lms-pwd" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')lmsDoLogin()"/>
+    <button onclick="lmsDoLogin()">Sign In →</button>
+    <div id="lms-login-error"></div>
+    <div class="lms-hint">Students: <b>bca26-ai-01</b> … <b>bca26-ai-10</b><br>Faculty: <b>bca26-fac-jyoti</b> &nbsp;|&nbsp; Admin: <b>bca26-admin</b><br>Contact faculty if you cannot sign in.</div>
+  </div>
+</div>
+<button class="lms-logout-btn" id="lms-logout-btn" style="display:none" onclick="lmsLogout()">⏻ Sign Out</button>
+<div id="lms-welcome-bar" class="lms-welcome-bar" style="display:none"></div>
+<div id="lms-page-content" class="lms-page-content">
+<header><div><h1>GJIMT AI Lab — BCA Sem 1 LMS</h1><p>BCA with AI Integration · 42-Hour Program · Shadow Project Implementation · Batch of 10</p></div></header>
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="calendar.html" class="active">📅 42-Hour Calendar</a>
+  <a href="projects.html">📁 Shadow Projects</a>
+  
+  <a href="faculty.html">👩‍🏫 Faculty Dashboard</a>
+  <a href="upload-guide.html">📤 Upload Guide</a>
+  <a href="users.html">🔑 User Accounts</a>
+</nav>
+<div class="container">
+  <div class="card">
+    <h2>📅 42-Hour Weekly Roadmap — BCA Sem 1 with AI Integration</h2>
+    <p style="margin-bottom:14px">3 hours per week × 14 weeks = 42 contact hours. This calendar is focused only on <strong>BCA Shadow Projects</strong> for Semester 1. Certification is planned for Semester 2, so it is not included in this calendar.</p>
+    <div style="overflow-x:auto">
+      <table><thead><tr><th>Wk</th><th>Dates</th><th>Shadow Project Task</th><th>AI Tool / Lab Focus</th><th>Weekly Output</th><th>Hrs</th></tr></thead><tbody>
+        <tr><td style="text-align:center;font-weight:700">1</td><td>03–07 Aug 2026</td><td><span class="badge badge-proj">Shadow</span> Orientation: BCA with AI, C programming workflow, project briefing</td><td><span class="badge badge-ai">AI Lab</span> ChatGPT/Gemini setup for logic explanation and code reasoning</td><td>Student login check, tool setup, project briefing</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">2</td><td>10–14 Aug 2026</td><td><span class="badge badge-proj">P1</span> Algorithm Logic Comparison: problem selection and Google benchmark context</td><td><span class="badge badge-ai">AI Lab</span> Generate alternative approaches for one C problem</td><td>P1 problem statement + 2–3 logic options</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">3</td><td>17–21 Aug 2026</td><td><span class="badge badge-proj">P1</span> Manual algorithm writing: flowchart, pseudocode and C logic draft</td><td><span class="badge badge-ai">AI Lab</span> Ask AI to explain logic, identify edge cases and suggest test inputs</td><td>Manual logic sheet + test case list</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">4</td><td>24–28 Aug 2026</td><td><span class="badge badge-proj">P1</span> C coding of multiple algorithm approaches</td><td><span class="badge badge-ai">AI Lab</span> Use AI help for debugging and comments</td><td>Two working C programs with output screenshots</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">5</td><td>31 Aug–04 Sep 2026</td><td><span class="badge badge-proj">P1</span> Compare clarity, steps, performance, robustness and limitations</td><td><span class="badge badge-ai">AI Lab</span> Build comparison table and refine explanation</td><td>P1 comparison table + recommendation</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">6</td><td>07–11 Sep 2026</td><td><span class="badge badge-proj">P1</span> Final report, presentation and viva</td><td><span class="badge badge-ai">AI Lab</span> Reflection: manual logic vs AI-assisted improvement</td><td><span class="badge badge-viva">Viva</span> P1 submission + viva</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">7</td><td>14–18 Sep 2026</td><td><span class="badge badge-proj">P2</span> Utility Program Development: Microsoft benchmark and utility planning</td><td><span class="badge badge-ai">AI Lab</span> Brainstorm menu-driven utility features and user flow</td><td>P2 utility proposal + menu structure</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">8</td><td>21–25 Sep 2026</td><td><span class="badge badge-proj">P2</span> C menu-driven program skeleton: Add, View, Search, Exit</td><td><span class="badge badge-ai">AI Lab</span> Use AI as pair programmer for loops, switch-case and functions</td><td>Working menu skeleton</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">9</td><td>28 Sep–02 Oct 2026</td><td><span class="badge badge-proj">P2</span> Input validation, error messages and robust user prompts</td><td><span class="badge badge-ai">AI Lab</span> AI review for edge cases and invalid input handling</td><td>Improved code with validation cases</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">10</td><td>05–09 Oct 2026</td><td><span class="badge badge-proj">P2</span> Feature completion: search, summary calculation, display formatting</td><td><span class="badge badge-ai">AI Lab</span> Debugging support and code refactoring suggestions</td><td>Complete utility program draft</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">11</td><td>12–16 Oct 2026</td><td><span class="badge badge-proj">P2</span> Documentation: user guide, code comments and internal specification</td><td><span class="badge badge-ai">AI Lab</span> AI support for documentation polishing</td><td>P2 documentation draft</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">12</td><td>19–23 Oct 2026</td><td><span class="badge badge-proj">P2</span> Testing, final changes, presentation and viva</td><td><span class="badge badge-ai">AI Lab</span> Reflection on Microsoft-style usability and documentation</td><td><span class="badge badge-viva">Viva</span> P2 submission + viva</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">13</td><td>26–30 Oct 2026</td><td><span class="badge badge-review">Review</span> Consolidated review of P1 and P2, peer feedback and improvement work</td><td><span class="badge badge-ai">AI Lab</span> AI-assisted portfolio polishing and checklist review</td><td>Portfolio draft with both projects</td><td style="text-align:center">3h</td></tr>
+        <tr><td style="text-align:center;font-weight:700">14</td><td>02–06 Nov 2026</td><td><span class="badge badge-review">Final</span> Final project portfolio submission and comprehensive viva</td><td><span class="badge badge-ai">AI Lab</span> Reflection: manual work, AI-assisted work and learning outcome</td><td>Final portfolio + comprehensive viva</td><td style="text-align:center">3h</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="card"><h2>Hour Allocation Summary</h2><table>
+    <tr><th>Component</th><th>Allocation</th><th>Notes</th></tr>
+    <tr><td>P1 — Algorithm Logic Comparison (Google Benchmark)</td><td>15 hours</td><td>Weeks 2–6: logic alternatives, C coding, testing, comparison and viva</td></tr>
+    <tr><td>P2 — Utility Program Development (Microsoft Benchmark)</td><td>18 hours</td><td>Weeks 7–12: planning, menu-driven C programming, validation, documentation and viva</td></tr>
+    <tr><td>Orientation and AI Tool Setup</td><td>3 hours</td><td>Week 1: LMS, AI tools, workflow and project briefing</td></tr>
+    <tr><td>Portfolio Review and Final Viva</td><td>6 hours</td><td>Weeks 13–14: final improvement, portfolio upload and comprehensive viva</td></tr>
+    <tr style="font-weight:700"><td>TOTAL CONTACT HOURS</td><td>42 hours</td><td>Aug–Nov 2026</td></tr>
+  </table></div>
+  <div class="card"><h2>Semester 1 Focus</h2>
+    <div class="phase-box manual"><strong>Manual First:</strong> Students first write logic, flowcharts, pseudocode, C code and test cases manually.</div>
+    <div class="phase-box ai"><strong>AI Augmentation:</strong> AI tools are used only for explanation, alternative logic, debugging support, documentation improvement and reflection.</div>
+    <div class="phase-box"><strong>No Certification in Semester 1 Calendar:</strong> Certification is planned for Semester 2, so this calendar focuses only on shadow projects and AI-integrated BCA programming practice.</div>
+  </div>
+</div>
+<footer>© 2026 GJIMT AI Lab · BCA AI Integrated Program · Powered by GitHub Pages</footer>
+</div>
+<script>
+(function(){
+  var USERS={'bca26-ai-01':'bca@2026','bca26-ai-02':'bca@2026','bca26-ai-03':'bca@2026','bca26-ai-04':'bca@2026','bca26-ai-05':'bca@2026','bca26-ai-06':'bca@2026','bca26-ai-07':'bca@2026','bca26-ai-08':'bca@2026','bca26-ai-09':'bca@2026','bca26-ai-10':'bca@2026','bca26-fac-jyoti':'faculty@2026','bca26-admin':'admin@2026'};
+  var ROLES={'bca26-ai-01':'student','bca26-ai-02':'student','bca26-ai-03':'student','bca26-ai-04':'student','bca26-ai-05':'student','bca26-ai-06':'student','bca26-ai-07':'student','bca26-ai-08':'student','bca26-ai-09':'student','bca26-ai-10':'student','bca26-fac-jyoti':'faculty','bca26-admin':'admin'};
+  var ALLOWED=['student','faculty','admin'];
+  function getSession(){try{return JSON.parse(localStorage.getItem('bcaLmsSession')||'null')}catch(e){return null}}
+  function setSession(uid,role){localStorage.setItem('bcaLmsSession',JSON.stringify({uid:uid,role:role}))}
+  function clearSession(){localStorage.removeItem('bcaLmsSession');localStorage.removeItem('bca_lms_user');localStorage.removeItem('lmsSession')}
+  function unlock(session){document.getElementById('lms-login-overlay').classList.remove('active');document.getElementById('lms-logout-btn').style.display='block';var wb=document.getElementById('lms-welcome-bar');wb.style.display='block';wb.textContent='Signed in as: '+session.uid+' ('+session.role+')  |  BCA AI Integrated Program 2026';var content=document.getElementById('lms-page-content');if(content)content.classList.add('unlocked')}
+  window.lmsDoLogin=function(){var uid=(document.getElementById('lms-uid').value||'').trim().toLowerCase();var pwd=document.getElementById('lms-pwd').value||'';var err=document.getElementById('lms-login-error');if(!USERS[uid]){err.textContent='❌ User ID not found.';return}if(USERS[uid]!==pwd){err.textContent='❌ Incorrect password.';return}var role=ROLES[uid];if(ALLOWED.indexOf(role)===-1){err.textContent='⛔ Access denied.';return}setSession(uid,role);unlock({uid:uid,role:role})};
+  window.lmsLogout=function(){clearSession();document.getElementById('lms-login-overlay').classList.add('active');document.getElementById('lms-logout-btn').style.display='none';document.getElementById('lms-welcome-bar').style.display='none';var content=document.getElementById('lms-page-content');if(content)content.classList.remove('unlocked');document.getElementById('lms-uid').value='';document.getElementById('lms-pwd').value='';document.getElementById('lms-login-error').textContent=''};
+  var session=getSession();if(session&&USERS[session.uid]&&ROLES[session.uid]===session.role&&ALLOWED.indexOf(session.role)!==-1){unlock(session)}
+})();
+</script>
+</body></html>

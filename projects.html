@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadow Projects — GJIMT BCA LMS</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6fb;color:#1a1a2e}
+  header{background:linear-gradient(135deg,#0f3460,#16213e);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
+  header img{height:48px;border-radius:6px}
+  header h1{font-size:1.4rem;font-weight:700}
+  header p{font-size:.82rem;opacity:.8}
+  nav{background:#16213e;display:flex;flex-wrap:wrap;gap:4px;padding:8px 32px}
+  nav a{color:#e0e0e0;text-decoration:none;padding:6px 14px;border-radius:4px;font-size:.85rem;transition:.2s}
+  nav a:hover,nav a.active{background:#0f3460;color:#fff}
+  .container{max-width:1100px;margin:28px auto;padding:0 20px}
+  .card{background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:24px;margin-bottom:20px}
+  .card h2{color:#0f3460;margin-bottom:12px;font-size:1.1rem}
+  .card h3{color:#16213e;margin:14px 0 8px;font-size:.97rem}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th{background:#0f3460;color:#fff;padding:9px 12px;text-align:left}
+  td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+  tr:hover td{background:#f0f4ff}
+  .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.75rem;font-weight:600}
+  .badge-proj{background:#e3f2fd;color:#0f3460}
+  .badge-google{background:#e8f0fe;color:#174ea6}
+  .badge-ms{background:#e8f5e9;color:#1b5e20}
+  .badge-mock{background:#fff3e0;color:#e65100}
+  .badge-doubt{background:#f3e5f5;color:#6a1b9a}
+  .btn{display:inline-block;padding:8px 18px;background:#0f3460;color:#fff;border-radius:6px;text-decoration:none;font-size:.85rem;margin:4px 2px;border:none;cursor:pointer}
+  .btn:hover{background:#16213e}
+  .btn-green{background:#2e7d32}.btn-green:hover{background:#1b5e20}
+  .btn-orange{background:#e65100}.btn-orange:hover{background:#bf360c}
+  ul,ol{padding-left:20px;margin:8px 0}
+  li{margin:4px 0;font-size:.9rem;line-height:1.45}
+  .phase-box{border-left:4px solid #0f3460;padding:10px 14px;margin:8px 0;background:#f8f9ff;border-radius:0 6px 6px 0}
+  .phase-box.ai{border-color:#2e7d32;background:#f1f8f1}
+  .phase-box.manual{border-color:#e65100;background:#fff8f0}
+  .phase-box.google{border-color:#174ea6;background:#f3f7ff}
+  .phase-box.ms{border-color:#2e7d32;background:#f1f8f1}
+  .hint{font-size:.8rem;color:#666;margin-top:6px}
+  footer{text-align:center;padding:18px;font-size:.8rem;color:#888;margin-top:30px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .tile{background:#f8f9ff;border:1px solid #dde3f0;border-radius:10px;padding:18px}
+  .tile h3{color:#0f3460;margin-top:0}
+  #lms-login-overlay{display:none;position:fixed;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);z-index:99999;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;}
+  #lms-login-overlay.active{display:flex;}
+  .lms-login-box{background:#fff;border-radius:18px;padding:40px 36px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;}
+  .lms-login-box .lms-logo{font-size:2rem;margin-bottom:4px;}
+  .lms-login-box h2{font-size:1.25rem;color:#0f172a;margin:0 0 4px;}
+  .lms-login-box .lms-subtitle{font-size:.78rem;color:#64748b;margin-bottom:24px;}
+  .lms-login-box input{width:100%;box-sizing:border-box;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.95rem;margin-bottom:12px;outline:none;transition:border .2s;}
+  .lms-login-box input:focus{border-color:#3b82f6;}
+  .lms-login-box button{width:100%;padding:12px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:4px;transition:background .2s;}
+  .lms-login-box button:hover{background:#2563eb;}
+  #lms-login-error{color:#ef4444;font-size:.82rem;margin-top:8px;min-height:18px;}
+  .lms-login-box .lms-hint{font-size:.73rem;color:#94a3b8;margin-top:14px;line-height:1.5;}
+  .lms-page-content{display:none;}
+  .lms-page-content.unlocked{display:block;}
+  .lms-logout-btn{position:fixed;top:12px;right:16px;z-index:9999;background:#ef4444;color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:.8rem;cursor:pointer;font-weight:600;}
+  .lms-logout-btn:hover{background:#dc2626;}
+  .lms-welcome-bar{background:#0f172a;color:#94a3b8;font-size:.78rem;text-align:center;padding:5px;letter-spacing:.5px;}
+  @media(max-width:768px){header,nav{padding-left:18px;padding-right:18px}.container{padding:0 14px}}
+</style>
+</head><body>
+
+<div id="lms-login-overlay" class="active">
+  <div class="lms-login-box">
+    <div class="lms-logo">🎓</div>
+    <h2>GJIMT BCA LMS</h2>
+    <div class="lms-subtitle">BCA with AI Integration · 2026<br>Please sign in to continue</div>
+    <input type="text" id="lms-uid" placeholder="User ID" autocomplete="username" />
+    <input type="password" id="lms-pwd" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')lmsDoLogin()"/>
+    <button onclick="lmsDoLogin()">Sign In →</button>
+    <div id="lms-login-error"></div>
+    <div class="lms-hint">Students: <b>bca26-ai-01</b> … <b>bca26-ai-10</b><br>Faculty: <b>bca26-fac-jyoti</b> &nbsp;|&nbsp; Admin: <b>bca26-admin</b><br>Contact faculty if you cannot sign in.</div>
+  </div>
+</div>
+<button class="lms-logout-btn" id="lms-logout-btn" style="display:none" onclick="lmsLogout()">⏻ Sign Out</button>
+<div id="lms-welcome-bar" class="lms-welcome-bar" style="display:none"></div>
+
+<div id="lms-page-content" class="lms-page-content">
+<header>
+  <div>
+    <h1>GJIMT AI Lab — BCA Sem 1 LMS</h1>
+    <p>BCA with AI Integration · 42-Hour Program · Shadow Projects · Batch of 10</p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="calendar.html">📅 42-Hour Calendar</a>
+  <a href="projects.html" class="active">📁 Shadow Projects</a>
+ 
+  <a href="faculty.html">👩‍🏫 Faculty Dashboard</a>
+  <a href="upload-guide.html">📤 Upload Guide</a>
+  <a href="users.html">🔑 User Accounts</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>📁 2 Benchmarked Shadow Projects — BCA Sem 1</h2>
+    <p>Each BCA shadow project connects <strong>C programming</strong>, <strong>algorithmic thinking</strong>, <strong>documentation</strong>, and <strong>AI-assisted learning</strong> with real industry practices. The structure follows the MBA LMS style but is customised for BCA Sem 1.</p>
+    <div style="margin-top:10px">
+      <a class="btn" href="#P1">P1: Google Algorithm Logic</a>
+      <a class="btn" href="#P2">P2: Microsoft Utility Program</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📌 Project Benchmark Mapping</h2>
+    <table>
+      <tr><th>Shadow Project</th><th>Benchmark Company</th><th>Inspiration Angle</th><th>Main Student Output</th></tr>
+      <tr><td><b>Algorithm Logic Comparison</b></td><td>Google</td><td>Search ranking logic, algorithm comparison, scalability and trade-offs</td><td>C program alternatives, comparison table, testing sheet, reflection note</td></tr>
+      <tr><td><b>Utility Program Development</b></td><td>Microsoft</td><td>Windows/Office utilities, user-friendly tools, documentation standards</td><td>Menu-driven C utility, screenshots, user guide, test cases, viva</td></tr>
+    </table>
+  </div>
+
+  <div class="card" id="P1">
+    <h2>🔎 Project 1: Algorithm Logic Comparison <span class="badge badge-google">Google Benchmark</span> <span class="badge badge-mock">Weeks 1–6</span></h2>
+    <p><strong>Objective:</strong> Compare different C-based algorithmic approaches for the same problem and justify which approach is better in terms of clarity, correctness, performance and robustness.</p>
+    <p style="margin-top:6px"><strong>Theme:</strong> “Think like Google when comparing algorithms for the same problem.”</p>
+    <p style="margin-top:6px"><strong>AI Tools:</strong> ChatGPT / Gemini for alternative logic ideas, time-space explanation, comparison tables and code review support.</p>
+
+    <h3>🏢 Benchmark Narrative</h3>
+    <div class="phase-box google">
+      <ul>
+        <li>Google must choose efficient and scalable algorithms for search, autocomplete, recommendation, ranking and spam detection.</li>
+        <li>Students mirror this practice by comparing multiple C solutions to the same problem.</li>
+        <li>The focus is not only writing code, but also explaining why one logic is better than another.</li>
+      </ul>
+    </div>
+
+    <h3>📋 4-Phase Framework</h3>
+    <p class="hint" style="margin-bottom:8px">🟠 Manual work first · 🤖 AI augmentation after manual attempt · Final decision must be student’s own reasoning.</p>
+
+    <div class="phase-box manual"><strong>🟠 Phase 1 — Problem Selection & Manual Understanding</strong>
+      <ul>
+        <li>Select one C programming problem suitable for multiple logic approaches.</li>
+        <li>Suggested problem: Find the top 3 largest numbers in a list.</li>
+        <li>Write the input, output, constraints and expected behaviour manually.</li>
+        <li>Deliverable: Problem definition sheet + sample inputs and outputs.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual"><strong>🟠 Phase 2 — Manual Logic Design</strong>
+      <ul>
+        <li>Design at least 3 approaches manually before using AI.</li>
+        <li>Example Approach A: Sort the array and pick the last 3 values.</li>
+        <li>Example Approach B: Single pass maintaining top 3 values.</li>
+        <li>Example Approach C: Partial selection logic.</li>
+        <li>Deliverable: Flowchart / pseudocode for all approaches.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual"><strong>🟠 Phase 3 — C Coding, Testing & Comparison</strong>
+      <ul>
+        <li>Write C code for all selected approaches.</li>
+        <li>Test with multiple inputs including duplicate values, negative numbers, small arrays and sorted/unsorted arrays.</li>
+        <li>Create comparison table: readability, number of loops, expected performance, edge-case handling and memory use.</li>
+        <li>Deliverable: C source files + test case sheet + comparison table.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box ai"><strong>🤖 Phase 4 — AI Lab & Google-Style Decision</strong>
+      <ul>
+        <li>Use ChatGPT/Gemini to ask for alternative logic and edge cases.</li>
+        <li>Use AI to explain time and space complexity in simple language.</li>
+        <li>Ask AI to review your comparison table, but do not copy the final answer blindly.</li>
+        <li>Final student decision: Which approach would you “ship” if you were in Google’s engineering team?</li>
+        <li>Deliverable: Final report + AI reflection note + viva.</li>
+      </ul>
+    </div>
+
+    <h3>🧠 Sample AI Prompts</h3>
+    <div class="phase-box ai">
+      <ul>
+        <li>“Generate three different C logic approaches to find the top 3 largest numbers in an array. Explain each approach simply.”</li>
+        <li>“Compare sorting-based logic and single-pass logic for large input size. Which is more efficient and why?”</li>
+        <li>“Review my C code and suggest edge cases I should test.”</li>
+      </ul>
+    </div>
+
+    <h3>📊 Evaluation Rubric</h3>
+    <table>
+      <tr><th>Criteria</th><th>Weight</th><th>Focus</th></tr>
+      <tr><td>Problem Understanding & Manual Logic</td><td><strong>30%</strong></td><td>Clear problem definition, pseudocode, flowchart and manual reasoning</td></tr>
+      <tr><td>C Coding & Testing</td><td><strong>30%</strong></td><td>Correct code, edge-case handling, test coverage and output accuracy</td></tr>
+      <tr><td>Comparison & AI Reflection</td><td><strong>40%</strong></td><td>Quality of comparison, AI use, trade-off explanation and final justification</td></tr>
+    </table>
+
+    <h3 style="margin-top:14px">📚 Learning Resources</h3>
+    <a class="btn" href="https://www.geeksforgeeks.org/c-programming-language/" target="_blank">C Programming Practice</a>
+    <a class="btn" href="https://www.geeksforgeeks.org/analysis-of-algorithms/" target="_blank">Algorithm Analysis Basics</a>
+    <a class="btn" href="https://developers.google.com/tech-writing" target="_blank">Google Technical Writing</a>
+    <div style="margin-top:12px"><a class="btn btn-green" href="https://docs.google.com/forms/create" target="_blank">📤 Submit P1 on Google Form</a></div>
+  </div>
+
+  <div class="card" id="P2">
+    <h2>🪟 Project 2: Utility Program Development <span class="badge badge-ms">Microsoft Benchmark</span> <span class="badge badge-mock">Weeks 7–12</span></h2>
+    <p><strong>Objective:</strong> Build a small menu-driven C utility that is correct, user-friendly, robust and properly documented.</p>
+    <p style="margin-top:6px"><strong>Theme:</strong> “Build a small utility like a junior developer at Microsoft working on Windows/Office tools.”</p>
+    <p style="margin-top:6px"><strong>AI Tools:</strong> GitHub Copilot for coding assistance, ChatGPT for code review and edge cases, Notion AI/Grammarly for documentation.</p>
+
+    <h3>🏢 Benchmark Narrative</h3>
+    <div class="phase-box ms">
+      <ul>
+        <li>Microsoft builds many small utilities such as calculators, file explorers, configuration wizards and productivity helpers.</li>
+        <li>Students create a simple C utility that resembles a real-world user tool.</li>
+        <li>The focus is clean menu design, input validation, helpful messages and clear documentation.</li>
+      </ul>
+    </div>
+
+    <h3>📋 4-Phase Framework</h3>
+    <p class="hint" style="margin-bottom:8px">🟠 Manual planning first · 🤖 AI support for improvement · Student must understand and explain every code block.</p>
+
+    <div class="phase-box manual"><strong>🟠 Phase 1 — Utility Selection & Requirement Planning</strong>
+      <ul>
+        <li>Select a simple utility program idea.</li>
+        <li>Recommended example: Student Gradebook Utility.</li>
+        <li>Define features: Add record, View all records, Search by roll number, Calculate grade, Exit.</li>
+        <li>Deliverable: Requirement specification sheet + menu sketch.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual"><strong>🟠 Phase 2 — Manual Program Design</strong>
+      <ul>
+        <li>Create flowchart and pseudocode for the complete menu-driven program.</li>
+        <li>Decide data structure: arrays, structures, loops and functions.</li>
+        <li>Plan validation rules for marks, roll number, empty records and wrong menu choices.</li>
+        <li>Deliverable: Flowchart + function list + validation checklist.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box manual"><strong>🟠 Phase 3 — C Development & Testing</strong>
+      <ul>
+        <li>Write the C program with functions and comments.</li>
+        <li>Add clear prompts and helpful error messages.</li>
+        <li>Test with valid and invalid input cases.</li>
+        <li>Prepare screenshots of each menu option and output.</li>
+        <li>Deliverable: C source code + screenshots + testing sheet.</li>
+      </ul>
+    </div>
+
+    <div class="phase-box ai"><strong>🤖 Phase 4 — AI Review, Documentation & Microsoft-Style Polish</strong>
+      <ul>
+        <li>Use Copilot as a pair programmer for boilerplate, loops and menu structures.</li>
+        <li>Use ChatGPT as a code reviewer to catch edge cases and improve prompts.</li>
+        <li>Use Notion AI/Grammarly to prepare user guide and project documentation.</li>
+        <li>Final program must be understandable, tested and well-documented.</li>
+        <li>Deliverable: Final C utility + user guide + AI reflection note + viva.</li>
+      </ul>
+    </div>
+
+    <h3>🧠 Sample AI Prompts</h3>
+    <div class="phase-box ai">
+      <ul>
+        <li>“Review this C menu-driven program and identify possible input validation issues.”</li>
+        <li>“Suggest better user-friendly messages for a student gradebook utility.”</li>
+        <li>“Create a simple user guide for this C utility including purpose, features and steps to use.”</li>
+      </ul>
+    </div>
+
+    <h3>📊 Evaluation Rubric</h3>
+    <table>
+      <tr><th>Criteria</th><th>Weight</th><th>Focus</th></tr>
+      <tr><td>Utility Planning & Design</td><td><strong>30%</strong></td><td>Requirement clarity, menu structure, flowchart and function planning</td></tr>
+      <tr><td>C Program Quality</td><td><strong>30%</strong></td><td>Correctness, input validation, error handling, comments and testing</td></tr>
+      <tr><td>Documentation & AI Enhancement</td><td><strong>40%</strong></td><td>User guide, code review, AI reflection and Microsoft-style usability</td></tr>
+    </table>
+
+    <h3 style="margin-top:14px">📚 Learning Resources</h3>
+    <a class="btn" href="https://learn.microsoft.com/en-us/cpp/c-language/" target="_blank">Microsoft C Language Reference</a>
+    <a class="btn" href="https://docs.github.com/en/copilot" target="_blank">GitHub Copilot Docs</a>
+    <a class="btn" href="https://learn.microsoft.com/en-us/style-guide/welcome/" target="_blank">Microsoft Writing Style Guide</a>
+    <div style="margin-top:12px"><a class="btn btn-green" href="https://docs.google.com/forms/create" target="_blank">📤 Submit P2 on Google Form</a></div>
+  </div>
+
+  <div class="card">
+    <h2>📦 Final Portfolio Submission</h2>
+    <table>
+      <tr><th>Portfolio Item</th><th>Required Evidence</th></tr>
+      <tr><td>P1 Algorithm Logic Comparison</td><td>C files, comparison table, test cases, AI reflection note and viva comments</td></tr>
+      <tr><td>P2 Utility Program Development</td><td>C source code, screenshots, user guide, testing sheet, AI reflection note and viva comments</td></tr>
+      <tr><td>Student Reflection</td><td>One-page note: “How AI helped me learn programming without replacing my own logic.”</td></tr>
+    </table>
+  </div>
+</div>
+<footer>© 2026 GJIMT AI Lab · BCA AI Integrated Program · Powered by GitHub Pages</footer>
+</div>
+
+<script>
+(function(){
+  var USERS = {};
+  var ROLES = {};
+  for(var i=1;i<=10;i++){
+    var id='bca26-ai-'+String(i).padStart(2,'0');
+    USERS[id]='bca@2026';
+    ROLES[id]='student';
+  }
+  USERS['bca26-fac-jyoti']='faculty@2026';
+  USERS['bca26-admin']='admin@2026';
+  ROLES['bca26-fac-jyoti']='faculty';
+  ROLES['bca26-admin']='admin';
+  var ALLOWED=['student','faculty','admin'];
+
+  function getSession(){
+    try{return JSON.parse(localStorage.getItem('bca_lms_session')||'null');}
+    catch(e){return null;}
+  }
+  function setSession(uid,role){localStorage.setItem('bca_lms_session',JSON.stringify({uid:uid,role:role}));}
+  function clearSession(){localStorage.removeItem('bca_lms_session');localStorage.removeItem('bca_lms_user');}
+
+  function unlock(session){
+    document.getElementById('lms-login-overlay').classList.remove('active');
+    document.getElementById('lms-logout-btn').style.display='block';
+    var wb=document.getElementById('lms-welcome-bar');
+    wb.style.display='block';
+    wb.textContent='Signed in as: '+session.uid+' ('+session.role+')  |  BCA AI Integrated Program 2026';
+    var content=document.getElementById('lms-page-content');
+    if(content) content.classList.add('unlocked');
+    if(window.location.hash){
+      setTimeout(function(){
+        var el=document.getElementById(window.location.hash.substring(1));
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      },150);
+    }
+  }
+
+  window.lmsDoLogin=function(){
+    var uid=(document.getElementById('lms-uid').value||'').trim().toLowerCase();
+    var pwd=document.getElementById('lms-pwd').value||'';
+    var err=document.getElementById('lms-login-error');
+    if(!USERS[uid]){err.textContent='❌ User ID not found.';return;}
+    if(USERS[uid]!==pwd){err.textContent='❌ Incorrect password.';return;}
+    var role=ROLES[uid];
+    if(ALLOWED.indexOf(role)===-1){err.textContent='⛔ Access denied.';return;}
+    setSession(uid,role);
+    unlock({uid:uid,role:role});
+  };
+
+  window.lmsLogout=function(){
+    clearSession();
+    document.getElementById('lms-login-overlay').classList.add('active');
+    document.getElementById('lms-logout-btn').style.display='none';
+    document.getElementById('lms-welcome-bar').style.display='none';
+    var content=document.getElementById('lms-page-content');
+    if(content) content.classList.remove('unlocked');
+    document.getElementById('lms-uid').value='';
+    document.getElementById('lms-pwd').value='';
+    document.getElementById('lms-login-error').textContent='';
+  };
+
+  var session=getSession();
+  if(session && USERS[session.uid] && ROLES[session.uid]===session.role && ALLOWED.indexOf(session.role)!==-1){unlock(session);}
+})();
+</script>
+</body></html>
